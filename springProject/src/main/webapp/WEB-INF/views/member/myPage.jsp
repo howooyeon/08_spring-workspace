@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,10 +38,28 @@
                    <input type="text" class="form-control" id="address" name="" value="${ loginMember.address }"><br>
                    
                    <label for=""> &nbsp; Gender : </label> &nbsp;&nbsp;
-                   <input type="radio" name="" id="Male" value="M">
+                   <input type="radio" name="gender" id="Male" value="M">
                    <label for="Male">남자</label> &nbsp;&nbsp;
-                   <input type="radio" name="" id="Female" value="F">
+                   <input type="radio" name="gender" id="Female" value="F">
                    <label for="Female">여자</label><br>
+                   
+                   <c:if test="${ not empty loginMember.gender }">
+                   		<script>
+			            	$(function(){
+			            		const gender = "${ loginMember.gender }";
+			            		// 현재 로그인한 회원의 관심분야들
+			            		// "" | "운동, 등산, 게임"
+			            		
+			            		$("input[type=radio]").each(function(){
+			            			// $(this) : 순차적으로 접근되는 체크박스 요소
+			            			// $(this).val() : 해당 체크박스의 value값
+			            			if(gender.search($(this).val()) != -1){ /*-1이라는 건 값이 없다는 뜻*/
+			            				$(this).attr("checked", true);
+			            			}
+			            		})
+			            	})
+			            </script>
+                   </c:if>
                    
                    
                </div>
@@ -86,18 +105,7 @@
        </div>
    </div>
    
-   <script>
-            	$(function(){
-            		const gender = "${ loginMember.gender }";
-            		
-            		$("input[type=radio]").each(function(){
-            		
-            			if(gender.search($(this).val()) != -1){ 
-            				$(this).attr("checked", true);
-            			}
-            		})
-            	})
-            </script>
+  
 
    <!-- 이쪽에 푸터바 포함할꺼임 -->
    <jsp:include page="../common/footer.jsp"/>
