@@ -232,6 +232,56 @@ public class MemberController {
 		return "member/myPage";
 	}
 	
+	@RequestMapping("update.me")
+	public String updateMember(Member m, Model model, HttpSession session) {
+		int result = mService.updateMember(m);
+		
+		if (result > 0) { // 수정 성공
+			// db로부터 수정된 회원정보를 다시 조회해와서
+			// session loginMember 키 값으로 덮어씌워야함
+			
+			Member updateMem = mService.loginMember(m);
+			session.setAttribute("loginMember", updateMem);
+			
+			// alert를 띄워줄 문구 담기
+			session.setAttribute("alertMsg", "성공적으로 회원정보를 수정하였습니다.");
+			
+			// 마이페이지 url 재요청 (url 재요청일땐 무적권 session)
+			return "redirect:myPage.me";
+			
+		} else { // 수정 실패 => 에러문구 담아서 에러페이지 포워딩
+			model.addAttribute("errorMsg", "회원정보 수정 실패");
+			return "common/errorPage";
+		}
+	}
+	
+	@RequestMapping("delete.me")
+	public String deleteMember(String userPwd, String userId, HttpSession session, Model model) {
+		// userPwd : 회원 탈퇴 요청시 사용자가 입력한 비밀번호 평문
+		// session에 loginMember Member 객체 userPwd : db로부터 조회된 비번 (암호문)
+		String encPwd = ((Member)session.getAttribute("loginMember")).getUserPwd();
+		
+		if(bcryptPasswordEncoder.matches(userPwd, encPwd)) { 
+			// 비번 맞음 => 탈퇴처리
+			int result = mService.deleteMember(userId);
+			
+			if(result > 0) { // 탈퇴처리 성공 => session에 loginMember 지우고 alert문구 담기 => 메인페이지 url 재요청
+				session.removeAttribute("loginMember");
+				session.setAttribute("alertMsg", "회원탈퇴 되었습니다. 이용해주셔서 감사합니다.");
+				return "redirect:/";
+		
+			} else { // 탈퇴처리 실패 => 에러문구 담아서 에러페이지 포워딩
+				model.addAttribute("errorMsg", "회원탈퇴 실패!");
+				return "common/errorPage";
+			}
+			
+		} else { // 비번 틀림 => 비밀번호가 틀림을 알리고 마이페이지가 보여지게
+			session.setAttribute("alertMsg", "비밀번호를 잘못 입력했습니다. 다시 확인해주세요");
+			return "redirect:myPage.me";
+		}
+		
+	}
+	
 	
 
 }
