@@ -43,7 +43,7 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public Board selectBoard(int boardNo) {
-		return null;
+		return bDao.selectBoard(sqlSession, boardNo);
 	}
 
 	@Override

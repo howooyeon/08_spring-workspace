@@ -21,7 +21,7 @@ public class BoardDao {
 		int limit = pi.getBoardLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
-		return (ArrayList)sqlSession.selectList("boardMapper.selectList", null, rowBounds);
+		return (ArrayList) sqlSession.selectList("boardMapper.selectList", null, rowBounds);
 	}
 
 	public int insertBoard(SqlSessionTemplate sqlSession, Board b) {
@@ -30,6 +30,10 @@ public class BoardDao {
 
 	public int increaseCount(SqlSessionTemplate sqlSession, int boardNo) {
 		return sqlSession.update("boardMapper.increaseCount", boardNo);
+	}
+
+	public Board selectBoard(SqlSessionTemplate sqlSession, int boardNo) {
+		return (Board) sqlSession.selectList("boardMapper.selectBoard", boardNo);
 	}
 	
 }

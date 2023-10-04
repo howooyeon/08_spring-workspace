@@ -161,10 +161,13 @@ public class BoardController {
 			// 		>> board/boardDetailView.jsp로 포워딩
 			Board b = bService.selectBoard(bno);
 			model.addAttribute("b", b);
+			return "board/boardDetailView.jsp";
 			
 		} else {
 			// >> 조회수 증가 실패
 			// 		>> 에러문구 담아서 에러페이지 포워딩
+			model.addAttribute("errorMsg", "게시글 상세 조회 실패!");
+			return "common/errorPage";
 			
 		}
 		
