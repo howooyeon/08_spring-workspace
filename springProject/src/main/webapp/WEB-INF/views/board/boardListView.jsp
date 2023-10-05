@@ -77,7 +77,7 @@
 	                        <td>${ b.count }</td>
 	                        <td>${ b.createDate }</td>
 	                        <td>
-	                        	<c:if test="${ not empty originName }">
+	                        	<c:if test="${ not empty b.originName }">
 	                        		★
 	                        	</c:if>
 	                        </td>
@@ -91,6 +91,7 @@
             	$(function(){
             		$("#boardList>tbody>tr").click(function(){
             			location.href = 'detail.bo?bno=' + $(this).children(".bno").text();
+            		})
             	})
             </script>
 		

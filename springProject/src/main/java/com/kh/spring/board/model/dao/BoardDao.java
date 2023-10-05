@@ -21,7 +21,7 @@ public class BoardDao {
 		int limit = pi.getBoardLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
-		return (ArrayList) sqlSession.selectList("boardMapper.selectList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("boardMapper.selectList", null, rowBounds);
 	}
 
 	public int insertBoard(SqlSessionTemplate sqlSession, Board b) {
@@ -33,7 +33,15 @@ public class BoardDao {
 	}
 
 	public Board selectBoard(SqlSessionTemplate sqlSession, int boardNo) {
-		return (Board) sqlSession.selectList("boardMapper.selectBoard", boardNo);
+		return (Board) sqlSession.selectOne("boardMapper.selectBoard", boardNo);
+	}
+
+	public int deleteBoard(SqlSessionTemplate sqlSession, int boardNo) {
+		return sqlSession.update("boardMapper.deleteBoard", boardNo);
+	}
+
+	public int updateBoard(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.update("boardMapper.updateBoard", b);
 	}
 	
 }
