@@ -47,7 +47,8 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public int idCheck(String checkId) {
-		return 0;
+		int result = mDao.idCheck(sqlSession, checkId);
+		return result;
 	}
 
 }
