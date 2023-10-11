@@ -14,13 +14,18 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.spring.board.model.service.BoardServiceImpl;
 import com.kh.spring.board.model.vo.Board;
+import com.kh.spring.board.model.vo.Reply;
 import com.kh.spring.common.model.vo.PageInfo;
 import com.kh.spring.common.template.Pagination;
+
+import sun.print.SunPrinterJobService;
 
 @Controller
 public class BoardController {
@@ -256,5 +261,22 @@ public class BoardController {
 			}
 			
 		}
-
+	
+	@ResponseBody
+	@RequestMapping(value="rlist.bo", produces="application/json; charset=UTF-8")
+	public String ajaxSelectReplyList(int bno) { 
+		ArrayList<Reply> list = bService.selectReplyList(bno);
+		System.out.println(list +"리스트");
+		return new Gson().toJson(list);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="rinsert.bo")
+	public String ajaxInsertReply(Reply r) {
+		int result = bService.insertReply(r);
+		System.out.println(result +"리절트");
+		return result> 0 ? "success" : "fail";
+		
+	}
+	 		
 }
