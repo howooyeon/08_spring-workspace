@@ -210,7 +210,6 @@ public class BoardController {
 	@RequestMapping("updateForm.bo")
 	public String updateForm(int bno, Model model) {
 		model.addAttribute("b", bService.selectBoard(bno));
-		System.out.println(bno+"asdasdasdasdasdsa");
 		return "board/boardUpdateForm";
 	}
 	
@@ -266,7 +265,6 @@ public class BoardController {
 	@RequestMapping(value="rlist.bo", produces="application/json; charset=UTF-8")
 	public String ajaxSelectReplyList(int bno) { 
 		ArrayList<Reply> list = bService.selectReplyList(bno);
-		System.out.println(list +"리스트");
 		return new Gson().toJson(list);
 	}
 	
@@ -274,9 +272,15 @@ public class BoardController {
 	@RequestMapping(value="rinsert.bo")
 	public String ajaxInsertReply(Reply r) {
 		int result = bService.insertReply(r);
-		System.out.println(result +"리절트");
-		return result> 0 ? "success" : "fail";
+		return result > 0 ? "success" : "fail";
 		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="topList.bo", produces="application/json; charset=UTF-8")
+	public String ajaxTopBoardList() {
+		ArrayList<Board> list = bService.selectTopBoardList();
+		return new Gson().toJson(list);
 	}
 	 		
 }
