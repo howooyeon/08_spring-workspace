@@ -29,6 +29,8 @@ public class AirPollutionJavaApp {
 		
 		// System.out.println(url);
 		
+		// 밑에 4단계 암기하듯이 외우기
+		
 		// ** HttpURLConnection 객체를 활용해서 OpenAPI 요청 절차 **
 		// 1. 요청하고자 하는 url 전달하면서 java.net.URL 객체 생성
 		URL requestUrl = new URL(url);
@@ -41,6 +43,8 @@ public class AirPollutionJavaApp {
 		
 		// 4. 해당 OpenAPI 서버로 요청 보낸 후 입력 스트림을 통해 응답 데이터 읽어들이기
 		BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+		// 버퍼드리더 한줄 한줄 오는 장점으로 쓰고싶은데 하나는 문자. 하나는 바이트 기반. 그걸 그냥 쓸 수 없어서 바이트를 인풋스트림으로 바꿔주는 inputStream을 활용해서 씀
+		// 보조 => 기반!!!
 		
 		String responseText = "";
 		String line;
@@ -118,7 +122,6 @@ public class AirPollutionJavaApp {
 		for(AirVO a : list) {
 			System.out.println(a);
 		}
-		
 				
 		// 5. 다 사용한 스트림 반납
 		br.close();
