@@ -14,12 +14,12 @@
 	<table id="result1" border="1">
 		<thead>
 			<tr>
-				<th>결과코드</th>
-				<th>결과메시지</th>
-				<th>한페이지결과수</th>
-				<th>페이지번호</th>
-				<th>전체결과수</th>
-				<th>수신문서형식</th>
+				<th>시도명</th>
+				<th>시군구명</th>
+				<th>상세주소</th>
+				<th>시설면적</th>
+				<th>관리부서</th>
+				<th>결과메세지</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -34,7 +34,7 @@
 				$.ajax({
 				    url: "airplane.do",
 				    success: function (data) {
-				        console.log(data);
+				     	sad
 				    },
 				    error: function () {
 				        console.log("ajax 통신 실패!");

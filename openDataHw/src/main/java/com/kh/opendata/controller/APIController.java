@@ -7,9 +7,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+@Controller
 public class APIController {
 	public static final String serviceKey = "FEoUH%2FWcbn1RevPi7Q8a49EnmCBF2OgVP5jlXlFH%2BObR3I2mOq3%2BiuJPe0ePQmUW5z4N6hykMyXJNas2i7u3Ug%3D%3D";
 
@@ -19,6 +21,8 @@ public class APIController {
 		
 		String url = "https://apis.data.go.kr/B551177/AviationStatsByAirline/getTotalNumberOfFlight";
 		url += "?serviceKey=" + serviceKey;
+		url += "&numOfRows=10";
+		url += "&pageNo=1";
 		url += "&type=json";
 		
 		URL requestUrl = new URL(url);
