@@ -43,4 +43,35 @@ public class APIController {
 		
 		return responseText;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="disaster.do", produces="text/xml; charset=UTF-8")
+	public String disasterShelter() throws IOException { 
+		String url ="https://apis.data.go.kr/1741000/EarthquakeIndoors2/getEarthquakeIndoors1List";
+		url += "?serviceKey=" + serviceKey;
+		url += "&pageNo=1";
+		url += "&type=xml";
+		
+		URL requestUrl = new URL(url);
+		HttpURLConnection urlConnection = (HttpURLConnection)requestUrl.openConnection();
+		urlConnection.setRequestMethod("GET");
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+		
+		String responseText = "";
+		String line;
+		
+		while((line = br.readLine()) != null) {
+			responseText += line;
+		}
+		
+		br.close();
+		urlConnection.disconnect();
+		
+		// System.out.println(responseText);
+		
+		return responseText;
+		
+	}
+	
 }
