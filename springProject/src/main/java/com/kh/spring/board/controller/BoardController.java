@@ -273,7 +273,6 @@ public class BoardController {
 	public String ajaxInsertReply(Reply r) {
 		int result = bService.insertReply(r);
 		return result > 0 ? "success" : "fail";
-		
 	}
 	
 	@ResponseBody
